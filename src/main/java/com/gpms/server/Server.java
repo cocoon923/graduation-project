@@ -2,20 +2,23 @@ package com.gpms.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
-@RestController
 @SpringBootApplication
 public class Server {
 
-    @RequestMapping("/")
-    String home() {
-        return "Hello World!";
-    }
+	public static void main(String[] args) {
+		SpringApplication app = new SpringApplication(Server.class);
+		app.run(args);
+	}
 
-    public static void main(String[] args) {
-        SpringApplication.run(Server.class, args);
-    }
+	@Bean
+	public CharacterEncodingFilter characterEncodingFilter() {
+		final CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");
+		characterEncodingFilter.setForceEncoding(true);
+		return characterEncodingFilter;
+	}
 
 }
